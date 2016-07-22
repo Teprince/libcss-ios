@@ -1,0 +1,12 @@
+
+*.xcworkspacedata
+
+*.xcuserstate
+
+*.xcscheme
+
+xcodeproj/libcss-ios.xcodeproj/xcuserdata/huguanqin.xcuserdatad/xcschemes/xcschememanagement.plist
+
+libparserutils/src/charset/aliases.inc
+
+build/gen_parser
