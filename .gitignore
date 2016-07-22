@@ -10,3 +10,5 @@ xcodeproj/libcss-ios.xcodeproj/xcuserdata/huguanqin.xcuserdatad/xcschemes/xcsche
 libparserutils/src/charset/aliases.inc
 
 build/gen_parser
+
+libcss-xcodeproj/libcss.xcodeproj/xcuserdata/huguanqin.xcuserdatad/xcschemes/xcschememanagement.plist

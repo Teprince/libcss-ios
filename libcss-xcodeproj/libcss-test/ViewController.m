@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 
-extern int css_test();
-
 @interface ViewController ()
 
 @end
@@ -18,8 +16,6 @@ extern int css_test();
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    css_test();
     // Do any additional setup after loading the view, typically from a nib.
 }
 

@@ -95,7 +95,7 @@ static css_error node_is_target(void *pw, void *node, bool *match);
 static css_error node_is_lang(void *pw, void *node,
 		lwc_string *lang, bool *match);
 static css_error node_presentational_hint(void *pw, void *node,
-        uint32_t *nhints, css_hint **hints);
+                                          uint32_t *nhints, css_hint **hints);
 static css_error ua_default_for_property(void *pw, uint32_t property,
 		css_hint *hint);
 static css_error compute_font_size(void *pw, const css_hint *parent,
@@ -621,8 +621,8 @@ css_error node_is_lang(void *pw, void *n,
 	return CSS_OK;
 }
 
-static css_error node_presentational_hint(void *pw, void *node,
-                                          uint32_t *nhints, css_hint **hints)
+css_error node_presentational_hint(void *pw, void *node,
+                                      uint32_t *nhints, css_hint **hints)
 {
 	UNUSED(pw);
 	UNUSED(node);
