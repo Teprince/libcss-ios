@@ -131,12 +131,13 @@ enum css_properties_e {
     /* facebook css layout support  */
     CSS_PROP_FLEX_DIRECTION			= 0x071,
     CSS_PROP_JUSTIFY_CONTENT        = 0x072,
-    CSS_PROP_ALIGN_ITEMS            = 0x073,
-    CSS_PROP_ALIGN_SELF             = 0x074,
-    CSS_PROP_FLEX_WRAP              = 0x075,
-    CSS_PROP_FLEX_GROW              = 0x076,
-    CSS_PROP_FLEX_SHRINK            = 0x077,
-    CSS_PROP_FLEX_BASIS             = 0x078,
+    CSS_PROP_ALIGN_CONTENT          = 0x073,
+    CSS_PROP_ALIGN_ITEMS            = 0x074,
+    CSS_PROP_ALIGN_SELF             = 0x075,
+    CSS_PROP_FLEX_WRAP              = 0x076,
+    CSS_PROP_FLEX_GROW              = 0x077,
+    CSS_PROP_FLEX_SHRINK            = 0x078,
+    CSS_PROP_FLEX_BASIS             = 0x079,
 	CSS_N_PROPERTIES
 };
 
@@ -168,6 +169,16 @@ enum css_align_type_e {
     CSS_ALIGN_TYPE_BASELINE             = 0x6,
     CSS_ALIGN_TYPE_SPACE_BETWEEN        = 0x7,
     CSS_ALIGN_TYPE_SPACE_AROUND         = 0x8,
+};
+    
+enum css_align_content_e {
+    CSS_ALIGN_CONTENT_INHERIT     = CSS_ALIGN_TYPE_INHERIT,
+    CSS_ALIGN_CONTENT_FLEX_START  = CSS_ALIGN_TYPE_FLEX_START,
+    CSS_ALIGN_CONTENT_CENTER      = CSS_ALIGN_TYPE_CENTER,
+    CSS_ALIGN_CONTENT_FLEX_END    = CSS_ALIGN_TYPE_FLEX_END,
+    CSS_ALIGN_CONTENT_STRETCH     = CSS_ALIGN_TYPE_STRETCH,
+    CSS_ALIGN_CONTENT_SPACE_BETWEEN = CSS_ALIGN_TYPE_SPACE_BETWEEN,
+    CSS_ALIGN_CONTENT_SPACE_AROUND  = CSS_ALIGN_TYPE_SPACE_AROUND,
 };
 
 enum css_align_items_e {

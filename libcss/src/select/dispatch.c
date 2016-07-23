@@ -596,6 +596,11 @@ struct prop_table prop_dispatch[CSS_N_PROPERTIES] = {
         GROUP_FLEXBOX
     },
     {
+        PROPERTY_FUNCS(align_content),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
         PROPERTY_FUNCS(align_items),
         0,
         GROUP_FLEXBOX

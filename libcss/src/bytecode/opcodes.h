@@ -746,6 +746,15 @@ enum op_justify_content {
     JUSTIFY_CONTENT_SPACE_AROUND    = 0x0004,
 };
 
+enum op_align_content {
+    ALIGN_CONTENT_FLEX_START  = 0x0000,
+    ALIGN_CONTENT_CENTER      = 0x0001,
+    ALIGN_CONTENT_FLEX_END    = 0x0002,
+    ALIGN_CONTENT_STRETCH     = 0x0003,
+    ALIGN_CONTENT_SPACE_BETWEEN   = 0x0004,
+    ALIGN_CONTENT_SPACE_AROUND    = 0x0005,
+};
+
 enum op_align_items {
     ALIGN_ITEMS_FLEX_START  = 0x0000,
     ALIGN_ITEMS_CENTER      = 0x0001,

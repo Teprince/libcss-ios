@@ -147,6 +147,7 @@ const css_prop_handler property_handlers[LAST_PROP + 1 - FIRST_PROP] =
     /* facebook css layout support  */
     css__parse_flex_direction,
     css__parse_justify_content,
+    css__parse_align_content,
     css__parse_align_items,
     css__parse_align_self,
     css__parse_flex_wrap,

@@ -1266,7 +1266,17 @@ Opcodes
 		4     => space-around,
 		other => Reserved for future expansion.	
 
-73 - align-items	
+73 - align-content	
+	<value> (14bits) :
+		0     => flex-start,
+		1     => center,
+		2     => flex-end,
+		3     => stretch,
+		4     => space-between,
+		5     => space-around,
+		other => Reserved for future expansion.
+
+74 - align-items	
 	<value> (14bits) :
 		0     => flex-start,
 		1     => center,
@@ -1275,7 +1285,7 @@ Opcodes
 		4     => baseline,
 		other => Reserved for future expansion.	
 
-74 - align-self	
+75 - align-self	
 	<value> (14bits) :
 		0     => auto,
 		1     => flex-start,
@@ -1285,14 +1295,14 @@ Opcodes
 		5     => baseline,
 		other => Reserved for future expansion.	
 
-75 - flex-wrap
+76 - flex-wrap
 	<value> (14bits) :
 		0     => nowrap,
 		1     => wrap,
 		2     => wrap-reverse,
 		other => Reserved for future expansion.	
 
-76 - flex-grow
+77 - flex-grow
 	<value> (14bits) :
 		bits 8-13: MBZ
 		bits 0-7 :
@@ -1300,7 +1310,7 @@ Opcodes
 					bits 0-6: MBZ
 			       clear => Reserved for future expansion
 			       		bits 0-6: MBZ
-77 - flex-shrink
+78 - flex-shrink
 	<value> (14bits) :
 		bits 8-13: MBZ
 		bits 0-7 :
@@ -1309,7 +1319,7 @@ Opcodes
 			       clear => Reserved for future expansion
 			       		bits 0-6: MBZ
 
-78 - flex_basis
+79 - flex_basis
 	<value> (14bits) :
 		bits 8-13: MBZ
 		bits 0-7 :

@@ -426,6 +426,9 @@ css_error css__parse_flex_direction(css_language *c,
 css_error css__parse_justify_content(css_language *c,
 		const parserutils_vector *vector, int *ctx,
 		css_style *result);
+css_error css__parse_align_content(css_language *c,
+        const parserutils_vector *vector, int *ctx,
+        css_style *result);
 css_error css__parse_align_items(css_language *c,
 		const parserutils_vector *vector, int *ctx,
 		css_style *result);

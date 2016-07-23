@@ -2306,8 +2306,8 @@ static inline css_error set_widows(
 static const css_computed_flexbox default_flexbox = {
     {
         CSS_FLEX_DIRECTION_COLUMN | CSS_ALIGN_SELF_AUTO << 2 | CSS_ALIGN_ITEMS_STRETCH << 5,
-        CSS_JUSTIFY_CONTENT_FLEX_START | CSS_FLEX_WRAP_NOWRAP << 3 | CSS_FLEX_GROW_SET << 5
-        | CSS_FLEX_SHRINK_SET << 6 | CSS_FLEX_BASIS_SET << 7
+        CSS_JUSTIFY_CONTENT_FLEX_START | CSS_FLEX_WRAP_NOWRAP << 3 | CSS_ALIGN_CONTENT_FLEX_START << 5,
+        CSS_FLEX_GROW_SET | CSS_FLEX_SHRINK_SET << 1 | CSS_FLEX_BASIS_SET << 2
     },
     0,
     0,
@@ -2383,8 +2383,8 @@ static inline css_error set_align_items(css_computed_style *style, uint8_t type)
 #undef ALIGN_ITEMS_INDEX
 
 #define JUSTIFY_CONTENT_INDEX 1
-#define JUSTIFY_CONTENT_SHIFT 0
-#define JUSTIFY_CONTENT_MASK  0x7
+#define JUSTIFY_CONTENT_SHIFT 2
+#define JUSTIFY_CONTENT_MASK  0x1c
 static inline css_error set_justify_content(css_computed_style *style, uint8_t type)
 {
     ENSURE_FLEXBOX;
@@ -2401,9 +2401,28 @@ static inline css_error set_justify_content(css_computed_style *style, uint8_t t
 #undef JUSTIFY_CONTENT_SHIFT
 #undef JUSTIFY_CONTENT_INDEX
 
+#define ALIGN_CONTENT_INDEX 0
+#define ALIGN_CONTENT_SHIFT 5
+#define ALIGN_CONTENT_MASK  0xE0
+static inline css_error set_align_content(css_computed_style *style, uint8_t type)
+{
+    ENSURE_FLEXBOX;
+    
+    uint8_t *bits = &style->flexbox->bits[ALIGN_CONTENT_INDEX];
+    
+    /* 3bits: type */
+    *bits = (*bits & ~ALIGN_CONTENT_MASK) |
+    ((type & 0x7) << ALIGN_CONTENT_SHIFT);
+    
+    return CSS_OK;
+}
+#undef ALIGN_CONTENT_MASK
+#undef ALIGN_CONTENT_SHIFT
+#undef ALIGN_CONTENT_INDEX
+
 #define FLEX_WRAP_INDEX 1
-#define FLEX_WRAP_SHIFT 3
-#define FLEX_WRAP_MASK  0x18
+#define FLEX_WRAP_SHIFT 0
+#define FLEX_WRAP_MASK  0x3
 static inline css_error set_flex_wrap(css_computed_style *style, uint8_t type)
 {
     ENSURE_FLEXBOX;
@@ -2420,9 +2439,9 @@ static inline css_error set_flex_wrap(css_computed_style *style, uint8_t type)
 #undef FLEX_WRAP_SHIFT
 #undef FLEX_WRAP_INDEX
 
-#define FLEX_GROW_INDEX 1
-#define FLEX_GROW_SHIFT 5
-#define FLEX_GROW_MASK 0x1F
+#define FLEX_GROW_INDEX 2
+#define FLEX_GROW_SHIFT 0
+#define FLEX_GROW_MASK 0x1
 static inline css_error set_flex_grow(css_computed_style *style, uint8_t type, int32_t flex_grow)
 {
     if (style->flexbox == NULL) {
@@ -2447,9 +2466,9 @@ static inline css_error set_flex_grow(css_computed_style *style, uint8_t type, i
 #undef FLEX_GROW_SHIFT
 #undef FLEX_GROW_INDEX
 
-#define FLEX_SHRINK_INDEX 1
-#define FLEX_SHRINK_SHIFT 6
-#define FLEX_SHRINK_MASK 0x3F
+#define FLEX_SHRINK_INDEX 2
+#define FLEX_SHRINK_SHIFT 1
+#define FLEX_SHRINK_MASK 0x2
 static inline css_error set_flex_shrink(css_computed_style *style, uint8_t type, int32_t flex_shrink)
 {
     if (style->flexbox == NULL) {
@@ -2474,9 +2493,9 @@ static inline css_error set_flex_shrink(css_computed_style *style, uint8_t type,
 #undef FLEX_SHRINK_SHIFT
 #undef FLEX_SHRINK_INDEX
 
-#define FLEX_BASIS_INDEX 1
-#define FLEX_BASIS_SHIFT 7
-#define FLEX_BASIS_MASK 0x7F
+#define FLEX_BASIS_INDEX 2
+#define FLEX_BASIS_SHIFT 1
+#define FLEX_BASIS_MASK 0x4
 static inline css_error set_flex_basis(css_computed_style *style, uint8_t type, int32_t flex_basis)
 {
     if (style->flexbox == NULL) {

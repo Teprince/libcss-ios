@@ -2232,8 +2232,8 @@ static inline uint8_t get_align_items(const css_computed_style *style)
 #undef ALIGN_ITEMS_INDEX
 
 #define JUSTIFY_CONTENT_INDEX 1
-#define JUSTIFY_CONTENT_SHIFT 0
-#define JUSTIFY_CONTENT_MASK  0x7
+#define JUSTIFY_CONTENT_SHIFT 2
+#define JUSTIFY_CONTENT_MASK  0x1c
 static inline uint8_t get_justify_content(const css_computed_style *style)
 {
     if (style->flexbox != NULL) {
@@ -2250,9 +2250,28 @@ static inline uint8_t get_justify_content(const css_computed_style *style)
 #undef JUSTIFY_CONTENT_SHIFT
 #undef JUSTIFY_CONTENT_INDEX
 
+#define ALIGN_CONTENT_INDEX 0
+#define ALIGN_CONTENT_SHIFT 5
+#define ALIGN_CONTENT_MASK  0xE0
+static inline uint8_t get_align_content(const css_computed_style *style)
+{
+    if (style->flexbox != NULL) {
+        uint8_t bits = style->flexbox->bits[ALIGN_CONTENT_INDEX];
+        bits &= ALIGN_CONTENT_MASK;
+        bits >>= ALIGN_CONTENT_SHIFT;
+        
+        /* 3bits: type */
+        return bits;
+    }
+    return CSS_ALIGN_CONTENT_FLEX_START;
+}
+#undef ALIGN_CONTENT_MASK
+#undef ALIGN_CONTENT_SHIFT
+#undef ALIGN_CONTENT_INDEX
+
 #define FLEX_WRAP_INDEX 1
-#define FLEX_WRAP_SHIFT 3
-#define FLEX_WRAP_MASK  0x18
+#define FLEX_WRAP_SHIFT 0
+#define FLEX_WRAP_MASK  0x3
 static inline uint8_t get_flex_wrap(const css_computed_style *style)
 {
     if (style->flexbox != NULL) {
@@ -2269,9 +2288,9 @@ static inline uint8_t get_flex_wrap(const css_computed_style *style)
 #undef FLEX_WRAP_SHIFT
 #undef FLEX_WRAP_INDEX
 
-#define FLEX_GROW_INDEX 1
-#define FLEX_GROW_SHIFT 5
-#define FLEX_GROW_MASK 0x1F
+#define FLEX_GROW_INDEX 2
+#define FLEX_GROW_SHIFT 0
+#define FLEX_GROW_MASK 0x1
 static inline uint8_t get_flex_grow(const css_computed_style *style, int32_t *flex_grow)
 {
     if (style->flexbox != NULL) {
@@ -2293,9 +2312,9 @@ static inline uint8_t get_flex_grow(const css_computed_style *style, int32_t *fl
 #undef FLEX_GROW_SHIFT
 #undef FLEX_GROW_INDEX
 
-#define FLEX_SHRINK_INDEX 1
-#define FLEX_SHRINK_SHIFT 6
-#define FLEX_SHRINK_MASK 0x3F
+#define FLEX_SHRINK_INDEX 2
+#define FLEX_SHRINK_SHIFT 1
+#define FLEX_SHRINK_MASK 0x2
 static inline uint8_t get_flex_shrink(const css_computed_style *style, int32_t *flex_shrink)
 {
     if (style->flexbox != NULL) {
@@ -2318,9 +2337,9 @@ static inline uint8_t get_flex_shrink(const css_computed_style *style, int32_t *
 #undef FLEX_SHRINK_SHIFT
 #undef FLEX_SHRINK_INDEX
 
-#define FLEX_BASIS_INDEX 1
-#define FLEX_BASIS_SHIFT 7
-#define FLEX_BASIS_MASK 0x7F
+#define FLEX_BASIS_INDEX 2
+#define FLEX_BASIS_SHIFT 2
+#define FLEX_BASIS_MASK 0x4
 static inline uint8_t get_flex_basis(const css_computed_style *style, int32_t *flex_basis)
 {
     if (style->flexbox != NULL) {

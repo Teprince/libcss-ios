@@ -130,9 +130,10 @@ typedef struct css_computed_flexbox {
      *
      *    76543210
      *  1 aaabbbii	align-items | align-self | flex-direction
-     *  2 xyziibbb	flex-grow | flex-shrink | flex-basis | flex-wrap | justify-content
+     *  2 aaabbbii	align_content | justify-content | flex-wrap
+     *  3      xyz	flex-basis | flex-shrink | flex-grow
      */
-    uint8_t bits[2];
+    uint8_t bits[3];
     
     int32_t flex_grow;
     int32_t flex_shrink;
