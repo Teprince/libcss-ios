@@ -12,3 +12,5 @@ libparserutils/src/charset/aliases.inc
 build/gen_parser
 
 libcss-xcodeproj/libcss.xcodeproj/xcuserdata/huguanqin.xcuserdatad/xcschemes/xcschememanagement.plist
+
+libcss-xcodeproj/libcss.xcodeproj/xcuserdata/huguanqin.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
