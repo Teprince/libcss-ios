@@ -47,7 +47,7 @@ css_error css__cascade_align_self(uint32_t opv, css_style *style,
     
     if (css__outranks_existing(getOpcode(opv), isImportant(opv), state,
                                isInherit(opv))) {
-        /** \todo set computed elevation */
+        return set_align_self(state->computed, value);
     }
     
     return CSS_OK;
@@ -56,26 +56,23 @@ css_error css__cascade_align_self(uint32_t opv, css_style *style,
 css_error css__set_align_self_from_hint(const css_hint *hint,
                                         css_computed_style *style)
 {
-    UNUSED(hint);
-    UNUSED(style);
-    
-    return CSS_OK;
+    return set_align_self(style, hint->status);
 }
 
 css_error css__initial_align_self(css_select_state *state)
 {
-    UNUSED(state);
-    
-    return CSS_OK;
+    return set_align_self(state->computed, CSS_ALIGN_SELF_AUTO);
 }
 
 css_error css__compose_align_self(const css_computed_style *parent,
                                   const css_computed_style *child,
                                   css_computed_style *result)
 {
-    UNUSED(parent);
-    UNUSED(child);
-    UNUSED(result);
+    uint8_t type = get_align_self(child);
     
-    return CSS_OK;
+    if (type == CSS_ALIGN_SELF_INHERIT) {
+        type = get_align_self(parent);
+    }
+    
+    return set_align_self(result, type);
 }

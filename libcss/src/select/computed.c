@@ -161,6 +161,10 @@ css_error css_computed_style_destroy(css_computed_style *style)
 	if (style->page != NULL) {
 		free(style->page);
 	}
+    
+    if (style->flexbox != NULL) {
+        free(style->flexbox);
+    }
 
 	if (style->aural != NULL) {
 		free(style->aural);
@@ -262,7 +266,11 @@ css_error css_computed_style_compose(const css_computed_style *parent,
 
 	/* Iterate through the properties */
 	for (i = 0; i < CSS_N_PROPERTIES; i++) {
-		/* Skip any in extension blocks if the block does not exist */	
+		/* Skip any in extension blocks if the block does not exist */
+        if (prop_dispatch[i].group == GROUP_FLEXBOX &&
+            parent->flexbox == NULL && child->flexbox == NULL)
+            continue;
+        
 		if (prop_dispatch[i].group == GROUP_UNCOMMON &&
 				parent->uncommon == NULL && 
 				child->uncommon == NULL)

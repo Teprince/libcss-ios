@@ -18,34 +18,32 @@
 css_error css__cascade_flex_grow(uint32_t opv, css_style *style,
                                   css_select_state *state)
 {
-    return CSS_OK;
+    return css__cascade_number(opv, style, state, set_flex_grow);
 }
 
 css_error css__set_flex_grow_from_hint(const css_hint *hint,
                                        css_computed_style *style)
 {
-    UNUSED(hint);
-    UNUSED(style);
-    
-    return CSS_OK;
+    return set_flex_grow(style, hint->status, hint->data.integer);
 }
 
 css_error css__initial_flex_grow(css_select_state *state)
 {
-    UNUSED(state);
-    
-    return CSS_OK;
+    return set_flex_grow(state->computed, CSS_FLEX_GROW_SET, 0);
 }
 
 css_error css__compose_flex_grow(const css_computed_style *parent,
                                  const css_computed_style *child,
                                  css_computed_style *result)
 {
-    UNUSED(parent);
-    UNUSED(child);
-    UNUSED(result);
+    int32_t value = 0;
+    uint8_t type = get_flex_grow(child, &value);
     
-    return CSS_OK;
+    if (type == CSS_FLEX_GROW_INHERIT) {
+        type = get_flex_grow(parent, &value);
+    }
+    
+    return set_flex_grow(result, type, value);
 }
 
 

@@ -41,7 +41,7 @@ css_error css__cascade_flex_direction(uint32_t opv, css_style *style,
     
     if (css__outranks_existing(getOpcode(opv), isImportant(opv), state,
                                isInherit(opv))) {
-        /** \todo set computed elevation */
+        return set_flex_direction(state->computed, value);
     }
     
     return CSS_OK;
@@ -50,27 +50,24 @@ css_error css__cascade_flex_direction(uint32_t opv, css_style *style,
 css_error css__set_flex_direction_from_hint(const css_hint *hint,
                                             css_computed_style *style)
 {
-    UNUSED(hint);
-    UNUSED(style);
-    
-    return CSS_OK;
+    return set_flex_direction(style, hint->status);
 }
 
 css_error css__initial_flex_direction(css_select_state *state)
 {
-    UNUSED(state);
-    
-    return CSS_OK;
+    return set_flex_direction(state->computed, CSS_FLEX_DIRECTION_COLUMN);
 }
 
 css_error css__compose_flex_direction(const css_computed_style *parent,
                                       const css_computed_style *child,
                                       css_computed_style *result)
 {
-    UNUSED(parent);
-    UNUSED(child);
-    UNUSED(result);
+    uint8_t type = get_flex_direction(child);
     
-    return CSS_OK;
+    if (type == CSS_FLEX_DIRECTION_INHERIT) {
+        type = get_flex_direction(parent);
+    }
+    
+    return set_flex_direction(result, type);
 }
 

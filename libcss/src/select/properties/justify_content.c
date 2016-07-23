@@ -44,7 +44,7 @@ css_error css__cascade_justify_content(uint32_t opv, css_style *style,
     
     if (css__outranks_existing(getOpcode(opv), isImportant(opv), state,
                                isInherit(opv))) {
-        /** \todo set computed elevation */
+        return set_justify_content(state->computed, value);
     }
     
     return CSS_OK;
@@ -53,26 +53,23 @@ css_error css__cascade_justify_content(uint32_t opv, css_style *style,
 css_error css__set_justify_content_from_hint(const css_hint *hint,
                                              css_computed_style *style)
 {
-    UNUSED(hint);
-    UNUSED(style);
-    
-    return CSS_OK;
+    return set_justify_content(style, hint->status);
 }
 
 css_error css__initial_justify_content(css_select_state *state)
 {
-    UNUSED(state);
-    
-    return CSS_OK;
+    return set_justify_content(state->computed, CSS_JUSTIFY_CONTENT_FLEX_START);
 }
 
 css_error css__compose_justify_content(const css_computed_style *parent,
                                        const css_computed_style *child,
                                        css_computed_style *result)
 {
-    UNUSED(parent);
-    UNUSED(child);
-    UNUSED(result);
+    uint8_t type = get_justify_content(child);
     
-    return CSS_OK;
+    if (type == CSS_JUSTIFY_CONTENT_INHERIT) {
+        type = get_justify_content(parent);
+    }
+    
+    return set_justify_content(result, type);
 }

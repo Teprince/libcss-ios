@@ -336,10 +336,16 @@ void css__make_style_important(css_style *style)
 			case CSS_PROP_RICHNESS:
 			case CSS_PROP_STRESS:
 			case CSS_PROP_WIDOWS:
+            case CSS_PROP_FLEX_GROW:
+            case CSS_PROP_FLEX_SHRINK:
+            case CSS_PROP_FLEX_BASIS:
 				assert(ORPHANS_SET == (enum op_orphans)PITCH_RANGE_SET);
 				assert(ORPHANS_SET == (enum op_orphans)RICHNESS_SET);
 				assert(ORPHANS_SET == (enum op_orphans)STRESS_SET);
 				assert(ORPHANS_SET == (enum op_orphans)WIDOWS_SET);
+                assert(ORPHANS_SET == (enum op_orphans)FLEX_GROW_SET);
+                assert(ORPHANS_SET == (enum op_orphans)FLEX_SHRINK_SET);
+                assert(ORPHANS_SET == (enum op_orphans)FLEX_BASIS_SET);
 
 				if (value == ORPHANS_SET)
 					offset++; /* value */

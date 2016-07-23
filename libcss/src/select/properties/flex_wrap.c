@@ -16,7 +16,7 @@
 #include "select/properties/helpers.h"
 
 css_error css__cascade_flex_wrap(uint32_t opv, css_style *style,
-                                      css_select_state *state)
+                                 css_select_state *state)
 {
     uint16_t value = CSS_FLEX_WRAP_INHERIT;
     
@@ -38,35 +38,32 @@ css_error css__cascade_flex_wrap(uint32_t opv, css_style *style,
     
     if (css__outranks_existing(getOpcode(opv), isImportant(opv), state,
                                isInherit(opv))) {
-        /** \todo set computed elevation */
+        return set_flex_wrap(state->computed, value);
     }
     
     return CSS_OK;
 }
 
 css_error css__set_flex_wrap_from_hint(const css_hint *hint,
-                                            css_computed_style *style)
+                                       css_computed_style *style)
 {
-    UNUSED(hint);
-    UNUSED(style);
-    
-    return CSS_OK;
+    return set_flex_wrap(style, hint->status);
 }
 
 css_error css__initial_flex_wrap(css_select_state *state)
 {
-    UNUSED(state);
-    
-    return CSS_OK;
+    return set_flex_wrap(state->computed, CSS_FLEX_WRAP_NOWRAP);
 }
 
 css_error css__compose_flex_wrap(const css_computed_style *parent,
-                                      const css_computed_style *child,
-                                      css_computed_style *result)
+                                 const css_computed_style *child,
+                                 css_computed_style *result)
 {
-    UNUSED(parent);
-    UNUSED(child);
-    UNUSED(result);
+    uint8_t type = get_flex_wrap(child);
     
-    return CSS_OK;
+    if (type == CSS_FLEX_WRAP_INHERIT) {
+        type = get_flex_wrap(parent);
+    }
+    
+    return set_flex_wrap(result, type);
 }
