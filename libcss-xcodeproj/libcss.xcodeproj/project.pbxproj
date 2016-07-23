@@ -777,7 +777,7 @@
 				C447FC611D425C1D0092E971 /* src */,
 			);
 			name = libcss;
-			path = "libcss-xcodeproj";
+			path = ../libcss;
 			sourceTree = "<group>";
 		};
 		C447F9B61D425A620092E971 /* libparserutils */ = {
@@ -785,7 +785,8 @@
 			children = (
 				C447F9BE1D425A7A0092E971 /* src */,
 			);
-			path = libparserutils;
+			name = libparserutils;
+			path = ../libparserutils;
 			sourceTree = "<group>";
 		};
 		C447F9BE1D425A7A0092E971 /* src */ = {
@@ -796,7 +797,7 @@
 				C447F9DA1D425A7A0092E971 /* utils */,
 			);
 			name = src;
-			path = ../../libparserutils/src;
+			path = ../libparserutils/src;
 			sourceTree = "<group>";
 		};
 		C447F9BF1D425A7A0092E971 /* charset */ = {
@@ -864,7 +865,8 @@
 			children = (
 				C447FA081D425B680092E971 /* src */,
 			);
-			path = libwapcaplet;
+			name = libwapcaplet;
+			path = ../libwapcaplet;
 			sourceTree = "<group>";
 		};
 		C447FA081D425B680092E971 /* src */ = {
@@ -872,8 +874,7 @@
 			children = (
 				C447FA091D425B680092E971 /* libwapcaplet.c */,
 			);
-			name = src;
-			path = ../../libwapcaplet/src;
+			path = src;
 			sourceTree = "<group>";
 		};
 		C447FC611D425C1D0092E971 /* src */ = {
@@ -889,7 +890,7 @@
 				C447FD951D425C1E0092E971 /* utils */,
 			);
 			name = src;
-			path = ../../libcss/src;
+			path = ../libcss/src;
 			sourceTree = "<group>";
 		};
 		C447FC621D425C1D0092E971 /* bytecode */ = {
@@ -1994,6 +1995,7 @@
 				C447F9B01D4259E40092E971 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C447F9BB1D425A620092E971 /* Build configuration list for PBXNativeTarget "libparserutils" */ = {
 			isa = XCConfigurationList;
@@ -2002,6 +2004,7 @@
 				C447F9BD1D425A620092E971 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C447FA051D425B440092E971 /* Build configuration list for PBXNativeTarget "libwapcaplet" */ = {
 			isa = XCConfigurationList;
@@ -2010,6 +2013,7 @@
 				C447FA071D425B440092E971 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C447FECA1D425CD80092E971 /* Build configuration list for PBXNativeTarget "libcss-test" */ = {
 			isa = XCConfigurationList;
@@ -2018,6 +2022,7 @@
 				C447FECC1D425CD80092E971 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
