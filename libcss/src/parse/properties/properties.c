@@ -153,6 +153,7 @@ const css_prop_handler property_handlers[LAST_PROP + 1 - FIRST_PROP] =
     css__parse_flex_wrap,
     css__parse_flex_grow,
     css__parse_flex_shrink,
-    css__parse_flex_basis
+    css__parse_flex_basis,
+    css__parse_flex
 };
 

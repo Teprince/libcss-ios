@@ -447,6 +447,9 @@ css_error css__parse_flex_shrink(css_language *c,
 css_error css__parse_flex_basis(css_language *c,
 		const parserutils_vector *vector, int *ctx,
 		css_style *result);
+css_error css__parse_flex(css_language *c,
+        const parserutils_vector *vector, int *ctx,
+        css_style *result);
 
 #endif
 

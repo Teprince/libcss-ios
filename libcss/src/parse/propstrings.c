@@ -225,6 +225,7 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
     { "flex-grow", SLEN("flex-grow") },
     { "flex-shrink", SLEN("flex-shrink") },
     { "flex-basis", SLEN("flex-basis") },
+    { "flex", SLEN("flex") },
     { "row", SLEN("row") },
     { "row-reverse", SLEN("row-reverse") },
     { "column-reverse", SLEN("column-reverse") },

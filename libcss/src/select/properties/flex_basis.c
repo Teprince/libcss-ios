@@ -52,7 +52,7 @@ css_error css__set_flex_basis_from_hint(const css_hint* hint,
 
 css_error css__initial_flex_basis(css_select_state* state)
 {
-    return set_flex_basis(state->computed, CSS_FLEX_BASIS_SET, 0);
+    return set_flex_basis(state->computed, CSS_FLEX_BASIS_AUTO, 0);
 }
 
 css_error css__compose_flex_basis(const css_computed_style* parent,

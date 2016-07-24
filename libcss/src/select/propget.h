@@ -2349,7 +2349,7 @@ static inline uint8_t get_flex_shrink(
 
 #define FLEX_BASIS_INDEX 2
 #define FLEX_BASIS_SHIFT 6
-#define FLEX_BASIS_MASK 0x40
+#define FLEX_BASIS_MASK 0xC0
 static inline uint8_t get_flex_basis(
         const css_computed_style* style,
         int32_t* flex_basis)
@@ -2367,7 +2367,7 @@ static inline uint8_t get_flex_basis(
 
     /* Initial value */
     *flex_basis = 0;
-    return CSS_FLEX_BASIS_SET;
+    return CSS_FLEX_BASIS_AUTO;
 }
 
 #undef FLEX_BASIS_MASK

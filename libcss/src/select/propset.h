@@ -2307,7 +2307,7 @@ static const css_computed_flexbox default_flexbox = {
     {
         CSS_FLEX_DIRECTION_COLUMN | (CSS_FLEX_WRAP_NOWRAP << 3) | (CSS_FLEX_GROW_SET << 6),
         CSS_JUSTIFY_CONTENT_FLEX_START | (CSS_ALIGN_CONTENT_FLEX_START << 3) | (CSS_FLEX_SHRINK_SET << 6),
-        CSS_ALIGN_ITEMS_STRETCH | (CSS_ALIGN_SELF_AUTO << 3) | (CSS_FLEX_BASIS_SET << 6)
+        CSS_ALIGN_ITEMS_STRETCH | (CSS_ALIGN_SELF_AUTO << 3) | (CSS_FLEX_BASIS_AUTO << 6)
     },
     0,
     0,
@@ -2522,7 +2522,7 @@ static inline css_error set_flex_shrink(
 
 #define FLEX_BASIS_INDEX 2
 #define FLEX_BASIS_SHIFT 6
-#define FLEX_BASIS_MASK 0x40
+#define FLEX_BASIS_MASK 0xC0
 static inline css_error set_flex_basis(
         css_computed_style* style,
         uint8_t type,
@@ -2531,7 +2531,7 @@ static inline css_error set_flex_basis(
     uint8_t *bits;
     
     if (style->flexbox == NULL) {
-        if (type == CSS_FLEX_BASIS_SET && flex_basis == 0) {
+        if (type == CSS_FLEX_BASIS_AUTO && flex_basis == 0) {
             return CSS_OK;
         }
     }
@@ -2541,7 +2541,7 @@ static inline css_error set_flex_basis(
     bits = &style->flexbox->bits[FLEX_BASIS_INDEX];
 
     /* 1bit: type */
-    *bits = (*bits & ~FLEX_BASIS_MASK) | ((type & 0x1) << FLEX_BASIS_SHIFT);
+    *bits = (*bits & ~FLEX_BASIS_MASK) | ((type & 0x11) << FLEX_BASIS_SHIFT);
 
     style->flexbox->flex_basis = flex_basis;
 
