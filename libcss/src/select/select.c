@@ -1177,6 +1177,10 @@ css_error set_initial(css_select_state *state,
 		 * property.
 		 */
 		switch (group) {
+        case GROUP_FLEXBOX:
+            if (state->computed->flexbox == NULL)
+                return CSS_OK;
+            break;
 		case GROUP_NORMAL:
 			break;
 		case GROUP_UNCOMMON:

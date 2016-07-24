@@ -161,6 +161,10 @@ css_error css_computed_style_destroy(css_computed_style *style)
 	if (style->page != NULL) {
 		free(style->page);
 	}
+    
+    if (style->flexbox != NULL) {
+        free(style->flexbox);
+    }
 
 	if (style->aural != NULL) {
 		free(style->aural);
@@ -262,7 +266,11 @@ css_error css_computed_style_compose(const css_computed_style *parent,
 
 	/* Iterate through the properties */
 	for (i = 0; i < CSS_N_PROPERTIES; i++) {
-		/* Skip any in extension blocks if the block does not exist */	
+		/* Skip any in extension blocks if the block does not exist */
+        if (prop_dispatch[i].group == GROUP_FLEXBOX &&
+            parent->flexbox == NULL && child->flexbox == NULL)
+            continue;
+        
 		if (prop_dispatch[i].group == GROUP_UNCOMMON &&
 				parent->uncommon == NULL && 
 				child->uncommon == NULL)
@@ -1666,3 +1674,61 @@ css_error compute_absolute_length_pair(css_computed_style *style,
 	return set(style, type, length1, unit1, length2, unit2);
 }
 
+/* facebook css layout support  */
+uint8_t css_computed_flex_direction(
+        const css_computed_style* style)
+{
+    return get_flex_direction(style);
+}
+
+uint8_t css_computed_justify_content(
+        const css_computed_style* style)
+{
+    return get_justify_content(style);
+}
+
+uint8_t css_computed_align_content(
+        const css_computed_style* style)
+
+{
+    return get_align_content(style);
+}
+
+uint8_t css_computed_align_items(
+        const css_computed_style* style)
+{
+    return get_align_items(style);
+}
+
+uint8_t css_computed_align_self(
+    const css_computed_style* style)
+{
+    return get_align_self(style);
+}
+
+uint8_t css_computed_flex_wrap(
+        const css_computed_style* style)
+{
+    return get_flex_wrap(style);
+}
+
+uint8_t css_computed_flex_grow(
+        const css_computed_style* style,
+        int32_t* flexgrow)
+{
+    return get_flex_grow(style, flexgrow);
+}
+
+uint8_t css_computed_flex_shrink(
+        const css_computed_style* style,
+        int32_t* flexshrink)
+{
+    return get_flex_shrink(style, flexshrink);
+}
+
+uint8_t css_computed_flex_basis(
+        const css_computed_style* style,
+        int32_t* basis)
+{
+    return get_flex_basis(style, basis);
+}

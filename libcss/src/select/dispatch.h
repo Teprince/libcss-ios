@@ -24,7 +24,8 @@ enum prop_group {
 	GROUP_NORMAL	= 0x0,
 	GROUP_UNCOMMON	= 0x1,
 	GROUP_PAGE	= 0x2,
-	GROUP_AURAL	= 0x3
+	GROUP_AURAL	= 0x3,
+    GROUP_FLEXBOX = 04
 };
 
 extern struct prop_table {

@@ -135,6 +135,16 @@ PROPERTY_FUNCS(word_spacing);
 PROPERTY_FUNCS(writing_mode);
 PROPERTY_FUNCS(z_index);
 
+/* facebook css layout support  */
+PROPERTY_FUNCS(flex_direction);
+PROPERTY_FUNCS(justify_content);
+PROPERTY_FUNCS(align_content);
+PROPERTY_FUNCS(align_items);
+PROPERTY_FUNCS(align_self);
+PROPERTY_FUNCS(flex_wrap);
+PROPERTY_FUNCS(flex_grow);
+PROPERTY_FUNCS(flex_shrink);
+PROPERTY_FUNCS(flex_basis);
 #undef PROPERTY_FUNCS
 
 #endif

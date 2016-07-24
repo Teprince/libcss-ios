@@ -404,7 +404,7 @@ css_error css__parse_white_space(css_language *c,
 		const parserutils_vector *vector, int *ctx, 
 		css_style *result);
 css_error css__parse_widows(css_language *c,
-		const parserutils_vector *vector, int *ctx, 
+		const parserutils_vector *vector, int *ctx,
 		css_style *result);
 css_error css__parse_width(css_language *c,
 		const parserutils_vector *vector, int *ctx, 
@@ -418,6 +418,38 @@ css_error css__parse_writing_mode(css_language *c,
 css_error css__parse_z_index(css_language *c,
 		const parserutils_vector *vector, int *ctx, 
 		css_style *result);
+
+/* facebook css layout support  */
+css_error css__parse_flex_direction(css_language *c,
+		const parserutils_vector *vector, int *ctx,
+		css_style *result);
+css_error css__parse_justify_content(css_language *c,
+		const parserutils_vector *vector, int *ctx,
+		css_style *result);
+css_error css__parse_align_content(css_language *c,
+        const parserutils_vector *vector, int *ctx,
+        css_style *result);
+css_error css__parse_align_items(css_language *c,
+		const parserutils_vector *vector, int *ctx,
+		css_style *result);
+css_error css__parse_align_self(css_language *c,
+		const parserutils_vector *vector, int *ctx,
+		css_style *result);
+css_error css__parse_flex_wrap(css_language *c,
+		const parserutils_vector *vector, int *ctx,
+		css_style *result);
+css_error css__parse_flex_grow(css_language *c,
+		const parserutils_vector *vector, int *ctx,
+		css_style *result);
+css_error css__parse_flex_shrink(css_language *c,
+		const parserutils_vector *vector, int *ctx,
+		css_style *result);
+css_error css__parse_flex_basis(css_language *c,
+		const parserutils_vector *vector, int *ctx,
+		css_style *result);
+css_error css__parse_flex(css_language *c,
+        const parserutils_vector *vector, int *ctx,
+        css_style *result);
 
 #endif
 

@@ -8,7 +8,8 @@
 
 #import "AppDelegate.h"
 
-extern int css_test();
+extern int css_test_nomal();
+extern int test_flexbox();
 
 @interface AppDelegate ()
 
@@ -19,7 +20,8 @@ extern int css_test();
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    css_test();
+    test_flexbox();
+    css_test_nomal();
     return YES;
 }
 

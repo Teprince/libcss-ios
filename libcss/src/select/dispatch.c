@@ -582,5 +582,52 @@ struct prop_table prop_dispatch[CSS_N_PROPERTIES] = {
 		PROPERTY_FUNCS(overflow_y),
 		0,
 		GROUP_NORMAL
-	}
+    }
+    
+    ,/* facebook css layout support  */
+    {
+        PROPERTY_FUNCS(flex_direction),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
+        PROPERTY_FUNCS(justify_content),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
+        PROPERTY_FUNCS(align_content),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
+        PROPERTY_FUNCS(align_items),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
+        PROPERTY_FUNCS(align_self),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
+        PROPERTY_FUNCS(flex_wrap),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
+        PROPERTY_FUNCS(flex_grow),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
+        PROPERTY_FUNCS(flex_shrink),
+        0,
+        GROUP_FLEXBOX
+    },
+    {
+        PROPERTY_FUNCS(flex_basis),
+        0,
+        GROUP_FLEXBOX
+    }
 };

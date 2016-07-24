@@ -2301,4 +2301,255 @@ static inline css_error set_widows(
 #undef WIDOWS_SHIFT
 #undef WIDOWS_MASK
 
+/* facebook css layout support  */
+
+static const css_computed_flexbox default_flexbox = {
+    {
+        CSS_FLEX_DIRECTION_COLUMN | (CSS_FLEX_WRAP_NOWRAP << 3) | (CSS_FLEX_GROW_SET << 6),
+        CSS_JUSTIFY_CONTENT_FLEX_START | (CSS_ALIGN_CONTENT_FLEX_START << 3) | (CSS_FLEX_SHRINK_SET << 6),
+        CSS_ALIGN_ITEMS_STRETCH | (CSS_ALIGN_SELF_AUTO << 3) | (CSS_FLEX_BASIS_AUTO << 6)
+    },
+    0,
+    0,
+    0
+};
+
+#define ENSURE_FLEXBOX                                                              \
+    do {                                                                            \
+        if (style->flexbox == NULL) {                                               \
+            style->flexbox = malloc(sizeof(css_computed_flexbox));                  \
+            if (style->flexbox == NULL)                                             \
+                return CSS_NOMEM;                                                   \
+                                                                                    \
+            memcpy(style->flexbox, &default_flexbox, sizeof(css_computed_flexbox)); \
+        }                                                                           \
+    } while (0)
+
+#define FLEX_DIRECTION_INDEX 0
+#define FLEX_DIRECTION_SHIFT 0
+#define FLEX_DIRECTION_MASK 0x7
+static inline css_error set_flex_direction(
+        css_computed_style* style,
+        uint8_t type)
+{
+    uint8_t *bits;
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[FLEX_DIRECTION_INDEX];
+
+    /* 2bits: type */
+    *bits = (*bits & ~FLEX_DIRECTION_MASK) | ((type & 0x3) << FLEX_DIRECTION_SHIFT);
+
+    return CSS_OK;
+}
+#undef FLEX_DIRECTION_MASK
+#undef FLEX_DIRECTION_SHIFT
+#undef FLEX_DIRECTION_INDEX
+
+#define ALIGN_SELF_INDEX 2
+#define ALIGN_SELF_SHIFT 3
+#define ALIGN_SELF_MASK 0x38
+static inline css_error set_align_self(
+        css_computed_style* style,
+        uint8_t type)
+{
+    uint8_t *bits;
+    
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[ALIGN_SELF_INDEX];
+
+    /* 3bits: type */
+    *bits = (*bits & ~ALIGN_SELF_MASK) | ((type & 0x7) << ALIGN_SELF_SHIFT);
+
+    return CSS_OK;
+}
+#undef ALIGN_SELF_MASK
+#undef ALIGN_SELF_SHIFT
+#undef ALIGN_SELF_INDEX
+
+#define ALIGN_ITEMS_INDEX 2
+#define ALIGN_ITEMS_SHIFT 0
+#define ALIGN_ITEMS_MASK 0x7
+static inline css_error set_align_items(
+        css_computed_style* style,
+        uint8_t type)
+{
+    uint8_t *bits;
+    
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[ALIGN_ITEMS_INDEX];
+
+    /* 3bits: type */
+    *bits = (*bits & ~ALIGN_ITEMS_MASK) | ((type & 0x7) << ALIGN_ITEMS_SHIFT);
+
+    return CSS_OK;
+}
+#undef ALIGN_ITEMS_MASK
+#undef ALIGN_ITEMS_SHIFT
+#undef ALIGN_ITEMS_INDEX
+
+#define JUSTIFY_CONTENT_INDEX 1
+#define JUSTIFY_CONTENT_SHIFT 0
+#define JUSTIFY_CONTENT_MASK 0x7
+static inline css_error set_justify_content(
+        css_computed_style* style,
+        uint8_t type)
+{
+    uint8_t *bits;
+    
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[JUSTIFY_CONTENT_INDEX];
+
+    /* 3bits: type */
+    *bits = (*bits & ~JUSTIFY_CONTENT_MASK) | ((type & 0x7) << JUSTIFY_CONTENT_SHIFT);
+
+    return CSS_OK;
+}
+#undef JUSTIFY_CONTENT_MASK
+#undef JUSTIFY_CONTENT_SHIFT
+#undef JUSTIFY_CONTENT_INDEX
+
+#define ALIGN_CONTENT_INDEX 1
+#define ALIGN_CONTENT_SHIFT 3
+#define ALIGN_CONTENT_MASK 0x38
+static inline css_error set_align_content(
+        css_computed_style* style,
+        uint8_t type)
+{
+    uint8_t *bits;
+        
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[ALIGN_CONTENT_INDEX];
+
+    /* 3bits: type */
+    *bits = (*bits & ~ALIGN_CONTENT_MASK) | ((type & 0x7) << ALIGN_CONTENT_SHIFT);
+
+    return CSS_OK;
+}
+#undef ALIGN_CONTENT_MASK
+#undef ALIGN_CONTENT_SHIFT
+#undef ALIGN_CONTENT_INDEX
+
+#define FLEX_WRAP_INDEX 0
+#define FLEX_WRAP_SHIFT 3
+#define FLEX_WRAP_MASK 0x38
+static inline css_error set_flex_wrap(
+        css_computed_style* style,
+        uint8_t type)
+{
+    uint8_t *bits;
+    
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[FLEX_WRAP_INDEX];
+
+    /* 2bits: type */
+    *bits = (*bits & ~FLEX_WRAP_MASK) | ((type & 0x3) << FLEX_WRAP_SHIFT);
+
+    return CSS_OK;
+}
+#undef FLEX_WRAP_MASK
+#undef FLEX_WRAP_SHIFT
+#undef FLEX_WRAP_INDEX
+
+#define FLEX_GROW_INDEX 0
+#define FLEX_GROW_SHIFT 6
+#define FLEX_GROW_MASK 0x40
+static inline css_error set_flex_grow(
+        css_computed_style* style,
+        uint8_t type,
+        int32_t flex_grow)
+{
+    uint8_t *bits;
+    
+    if (style->flexbox == NULL) {
+        if (type == CSS_FLEX_GROW_SET && flex_grow == 0) {
+            return CSS_OK;
+        }
+    }
+
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[FLEX_GROW_INDEX];
+
+    /* 1bit: type */
+    *bits = (*bits & ~FLEX_GROW_MASK) | ((type & 0x1) << FLEX_GROW_SHIFT);
+
+    style->flexbox->flex_grow = flex_grow;
+
+    return CSS_OK;
+}
+
+#undef FLEX_GROW_MASK
+#undef FLEX_GROW_SHIFT
+#undef FLEX_GROW_INDEX
+
+#define FLEX_SHRINK_INDEX 1
+#define FLEX_SHRINK_SHIFT 6
+#define FLEX_SHRINK_MASK 0x40
+static inline css_error set_flex_shrink(
+        css_computed_style* style,
+        uint8_t type,
+        int32_t flex_shrink)
+{
+    uint8_t *bits;
+    
+    if (style->flexbox == NULL) {
+        if (type == CSS_FLEX_SHRINK_SET && flex_shrink == 0) {
+            return CSS_OK;
+        }
+    }
+
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[FLEX_SHRINK_INDEX];
+
+    /* 1bit: type */
+    *bits = (*bits & ~FLEX_SHRINK_MASK) | ((type & 0x1) << FLEX_SHRINK_SHIFT);
+
+    style->flexbox->flex_shrink = flex_shrink;
+
+    return CSS_OK;
+}
+
+#undef FLEX_SHRINK_MASK
+#undef FLEX_SHRINK_SHIFT
+#undef FLEX_SHRINK_INDEX
+
+#define FLEX_BASIS_INDEX 2
+#define FLEX_BASIS_SHIFT 6
+#define FLEX_BASIS_MASK 0xC0
+static inline css_error set_flex_basis(
+        css_computed_style* style,
+        uint8_t type,
+        int32_t flex_basis)
+{
+    uint8_t *bits;
+    
+    if (style->flexbox == NULL) {
+        if (type == CSS_FLEX_BASIS_AUTO && flex_basis == 0) {
+            return CSS_OK;
+        }
+    }
+
+    ENSURE_FLEXBOX;
+
+    bits = &style->flexbox->bits[FLEX_BASIS_INDEX];
+
+    /* 1bit: type */
+    *bits = (*bits & ~FLEX_BASIS_MASK) | ((type & 0x11) << FLEX_BASIS_SHIFT);
+
+    style->flexbox->flex_basis = flex_basis;
+
+    return CSS_OK;
+}
+
+#undef FLEX_BASIS_MASK
+#undef FLEX_BASIS_SHIFT
+#undef FLEX_BASIS_INDEX
+
 #endif
