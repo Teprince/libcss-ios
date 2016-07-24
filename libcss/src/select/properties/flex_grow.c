@@ -18,7 +18,23 @@
 css_error css__cascade_flex_grow(uint32_t opv, css_style* style,
         css_select_state* state)
 {
-    return css__cascade_number(opv, style, state, set_flex_grow);
+    uint16_t value = CSS_FLEX_GROW_INHERIT;
+    css_fixed index = 0;
+    
+    if (isInherit(opv) == false) {
+        value = CSS_FLEX_GROW_SET;
+        
+        index = *((css_fixed*)style->bytecode);
+        advance_bytecode(style, sizeof(index));
+        index >>= 10;
+    }
+    
+    if (css__outranks_existing(getOpcode(opv), isImportant(opv), state,
+                               isInherit(opv))) {
+        return set_flex_grow(state->computed, value, index);
+    }
+    
+    return CSS_OK;
 }
 
 css_error css__set_flex_grow_from_hint(const css_hint* hint,

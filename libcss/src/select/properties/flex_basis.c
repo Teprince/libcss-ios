@@ -28,6 +28,7 @@ css_error css__cascade_flex_basis(uint32_t opv, css_style* style,
 
             index = *((css_fixed*)style->bytecode);
             advance_bytecode(style, sizeof(index));
+            index >>= 10;
             break;
         case FLEX_BASIS_AUTO:
             value = CSS_FLEX_BASIS_AUTO;

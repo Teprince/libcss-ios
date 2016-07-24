@@ -129,9 +129,9 @@ typedef struct css_computed_flexbox {
      * Bit allocations:
      *
      *    76543210
-     *  1 aaabbbii	align-items | align-self | flex-direction
-     *  2 aaabbbii	align_content | justify-content | flex-wrap
-     *  3      xyz	flex-basis | flex-shrink | flex-grow
+     *  1 0ibbbaaa	flex-grow | flex-wrap | flex-direction
+     *  2 0ibbbaaa	flex-shrink | align_content | justify-content
+     *  3 0ibbbaaa	flex-basis | align-self | align-items
      */
     uint8_t bits[3];
     

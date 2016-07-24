@@ -1674,3 +1674,61 @@ css_error compute_absolute_length_pair(css_computed_style *style,
 	return set(style, type, length1, unit1, length2, unit2);
 }
 
+/* facebook css layout support  */
+uint8_t css_computed_flex_direction(
+        const css_computed_style* style)
+{
+    return get_flex_direction(style);
+}
+
+uint8_t css_computed_justify_content(
+        const css_computed_style* style)
+{
+    return get_justify_content(style);
+}
+
+uint8_t css_computed_align_content(
+        const css_computed_style* style)
+
+{
+    return get_align_content(style);
+}
+
+uint8_t css_computed_align_items(
+        const css_computed_style* style)
+{
+    return get_align_items(style);
+}
+
+uint8_t css_computed_align_self(
+    const css_computed_style* style)
+{
+    return get_align_self(style);
+}
+
+uint8_t css_computed_flex_wrap(
+        const css_computed_style* style)
+{
+    return get_flex_wrap(style);
+}
+
+uint8_t css_computed_flex_grow(
+        const css_computed_style* style,
+        int32_t* flexgrow)
+{
+    return get_flex_grow(style, flexgrow);
+}
+
+uint8_t css_computed_flex_shrink(
+        const css_computed_style* style,
+        int32_t* flexshrink)
+{
+    return get_flex_shrink(style, flexshrink);
+}
+
+uint8_t css_computed_flex_basis(
+        const css_computed_style* style,
+        int32_t* basis)
+{
+    return get_flex_basis(style, basis);
+}

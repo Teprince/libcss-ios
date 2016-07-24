@@ -2176,7 +2176,7 @@ static inline uint8_t get_widows(
 
 #define FLEX_DIRECTION_INDEX 0
 #define FLEX_DIRECTION_SHIFT 0
-#define FLEX_DIRECTION_MASK 0x3
+#define FLEX_DIRECTION_MASK 0x7
 static inline uint8_t get_flex_direction(
         const css_computed_style* style)
 {
@@ -2194,15 +2194,15 @@ static inline uint8_t get_flex_direction(
 #undef FLEX_DIRECTION_SHIFT
 #undef FLEX_DIRECTION_INDEX
 
-#define ALIGN_SELF_INDEX 0
-#define ALIGN_SELF_SHIFT 2
-#define ALIGN_SELF_MASK 0x1C
+#define ALIGN_SELF_INDEX 2
+#define ALIGN_SELF_SHIFT 3
+#define ALIGN_SELF_MASK 0x38
 static inline uint8_t get_align_self(
         const css_computed_style* style)
 {
     if (style->flexbox != NULL) {
         uint8_t bits = style->flexbox->bits[ALIGN_SELF_INDEX];
-        bits &= ~ALIGN_SELF_MASK;
+        bits &= ALIGN_SELF_MASK;
         bits >>= ALIGN_SELF_SHIFT;
 
         /* 3bits: type */
@@ -2214,15 +2214,15 @@ static inline uint8_t get_align_self(
 #undef ALIGN_SELF_SHIFT
 #undef ALIGN_SELF_INDEX
 
-#define ALIGN_ITEMS_INDEX 0
-#define ALIGN_ITEMS_SHIFT 5
-#define ALIGN_ITEMS_MASK 0xE0
+#define ALIGN_ITEMS_INDEX 2
+#define ALIGN_ITEMS_SHIFT 0
+#define ALIGN_ITEMS_MASK 0x7
 static inline uint8_t get_align_items(
         const css_computed_style* style)
 {
     if (style->flexbox != NULL) {
         uint8_t bits = style->flexbox->bits[ALIGN_ITEMS_INDEX];
-        bits &= ~ALIGN_ITEMS_MASK;
+        bits &= ALIGN_ITEMS_MASK;
         bits >>= ALIGN_ITEMS_SHIFT;
 
         /* 3bits: type */
@@ -2235,14 +2235,14 @@ static inline uint8_t get_align_items(
 #undef ALIGN_ITEMS_INDEX
 
 #define JUSTIFY_CONTENT_INDEX 1
-#define JUSTIFY_CONTENT_SHIFT 2
-#define JUSTIFY_CONTENT_MASK 0x1c
+#define JUSTIFY_CONTENT_SHIFT 0
+#define JUSTIFY_CONTENT_MASK 0x7
 static inline uint8_t get_justify_content(
         const css_computed_style* style)
 {
     if (style->flexbox != NULL) {
         uint8_t bits = style->flexbox->bits[JUSTIFY_CONTENT_INDEX];
-        bits &= ~JUSTIFY_CONTENT_MASK;
+        bits &= JUSTIFY_CONTENT_MASK;
         bits >>= JUSTIFY_CONTENT_SHIFT;
 
         /* 3bits: type */
@@ -2254,9 +2254,9 @@ static inline uint8_t get_justify_content(
 #undef JUSTIFY_CONTENT_SHIFT
 #undef JUSTIFY_CONTENT_INDEX
 
-#define ALIGN_CONTENT_INDEX 0
-#define ALIGN_CONTENT_SHIFT 5
-#define ALIGN_CONTENT_MASK 0xE0
+#define ALIGN_CONTENT_INDEX 1
+#define ALIGN_CONTENT_SHIFT 3
+#define ALIGN_CONTENT_MASK 0x38
 static inline uint8_t get_align_content(
         const css_computed_style* style)
 {
@@ -2274,15 +2274,15 @@ static inline uint8_t get_align_content(
 #undef ALIGN_CONTENT_SHIFT
 #undef ALIGN_CONTENT_INDEX
 
-#define FLEX_WRAP_INDEX 1
-#define FLEX_WRAP_SHIFT 0
-#define FLEX_WRAP_MASK 0x3
+#define FLEX_WRAP_INDEX 0
+#define FLEX_WRAP_SHIFT 3
+#define FLEX_WRAP_MASK 0x38
 static inline uint8_t get_flex_wrap(
         const css_computed_style* style)
 {
     if (style->flexbox != NULL) {
         uint8_t bits = style->flexbox->bits[FLEX_WRAP_INDEX];
-        bits &= ~FLEX_WRAP_MASK;
+        bits &= FLEX_WRAP_MASK;
         bits >>= FLEX_WRAP_SHIFT;
 
         /* 3bits: type */
@@ -2294,9 +2294,9 @@ static inline uint8_t get_flex_wrap(
 #undef FLEX_WRAP_SHIFT
 #undef FLEX_WRAP_INDEX
 
-#define FLEX_GROW_INDEX 2
-#define FLEX_GROW_SHIFT 0
-#define FLEX_GROW_MASK 0x1
+#define FLEX_GROW_INDEX 0
+#define FLEX_GROW_SHIFT 6
+#define FLEX_GROW_MASK 0x40
 static inline uint8_t get_flex_grow(
         const css_computed_style* style,
         int32_t* flex_grow)
@@ -2320,9 +2320,9 @@ static inline uint8_t get_flex_grow(
 #undef FLEX_GROW_SHIFT
 #undef FLEX_GROW_INDEX
 
-#define FLEX_SHRINK_INDEX 2
-#define FLEX_SHRINK_SHIFT 1
-#define FLEX_SHRINK_MASK 0x2
+#define FLEX_SHRINK_INDEX 1
+#define FLEX_SHRINK_SHIFT 6
+#define FLEX_SHRINK_MASK 0x40
 static inline uint8_t get_flex_shrink(
         const css_computed_style* style,
         int32_t* flex_shrink)
@@ -2348,8 +2348,8 @@ static inline uint8_t get_flex_shrink(
 #undef FLEX_SHRINK_INDEX
 
 #define FLEX_BASIS_INDEX 2
-#define FLEX_BASIS_SHIFT 2
-#define FLEX_BASIS_MASK 0x4
+#define FLEX_BASIS_SHIFT 6
+#define FLEX_BASIS_MASK 0x40
 static inline uint8_t get_flex_basis(
         const css_computed_style* style,
         int32_t* flex_basis)

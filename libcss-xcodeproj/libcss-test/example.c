@@ -149,7 +149,7 @@ static css_select_handler select_handler = {
 };
 
 
-int css_test()
+int css_test_nomal()
 {
 	css_error code;
 	css_stylesheet *sheet;
@@ -262,6 +262,142 @@ int css_test()
 		die("css_stylesheet_destroy", code);
 
 	return 0;
+}
+
+int test_flexbox()
+{
+    css_error code;
+    css_stylesheet *sheet;
+    size_t size;
+    const char data[] =
+    "span {"
+    "    box-sizing: border-box;"
+    "position: relative;"
+    "display: flex;"
+    "    flex-direction: row;"
+    "    flex-wrap: wrap-reverse;"
+    "    flex-grow: 2;"
+    "    justify-content: space-between;"
+    "    align-content: flex-start;"
+    "    flex-shrink: 1;"
+    "    align-items: stretch;"
+    "    align-self: flex-end;"
+    "    flex-basis: 3;"
+    "border: 0 solid black;"
+    "margin: 0;"
+    "padding: 0;"
+    "    min-width: 0;"
+    "}";
+    
+    css_select_ctx *select_ctx;
+    uint32_t count;
+    css_stylesheet_params params;
+    uint8_t flex_direction;
+    uint8_t justify_content;
+    uint8_t align_self;
+    uint8_t align_items;
+    uint8_t align_content;
+    uint8_t flex_wrap;
+    int32_t flex_basis;
+    int32_t flex_grow;
+    int32_t flex_shrink;
+    uint8_t type;
+    
+    params.params_version = CSS_STYLESHEET_PARAMS_VERSION_1;
+    params.level = CSS_LEVEL_3;
+    params.charset = "UTF-8";
+    params.url = "foo";
+    params.title = "foo";
+    params.allow_quirks = false;
+    params.inline_style = false;
+    params.resolve = resolve_url;
+    params.resolve_pw = NULL;
+    params.import = NULL;
+    params.import_pw = NULL;
+    params.color = NULL;
+    params.color_pw = NULL;
+    params.font = NULL;
+    params.font_pw = NULL;
+    
+    /* create a stylesheet */
+    code = css_stylesheet_create(&params, &sheet);
+    if (code != CSS_OK)
+        die("css_stylesheet_create", code);
+    code = css_stylesheet_size(sheet, &size);
+    if (code != CSS_OK)
+        die("css_stylesheet_size", code);
+    printf("created stylesheet, size %zu\n", size);
+    
+    
+    /* parse some CSS source */
+    code = css_stylesheet_append_data(sheet, (const uint8_t *) data,
+                                      sizeof data);
+    if (code != CSS_OK && code != CSS_NEEDDATA)
+        die("css_stylesheet_append_data", code);
+    code = css_stylesheet_data_done(sheet);
+    if (code != CSS_OK)
+        die("css_stylesheet_data_done", code);
+    code = css_stylesheet_size(sheet, &size);
+    if (code != CSS_OK)
+        die("css_stylesheet_size", code);
+    printf("appended data, size now %zu\n", size);
+    
+    
+    /* prepare a selection context containing the stylesheet */
+    code = css_select_ctx_create(&select_ctx);
+    if (code != CSS_OK)
+        die("css_select_ctx_create", code);
+    code = css_select_ctx_append_sheet(select_ctx, sheet, CSS_ORIGIN_AUTHOR,
+                                       CSS_MEDIA_ALL);
+    if (code != CSS_OK)
+        die("css_select_ctx_append_sheet", code);
+    code = css_select_ctx_count_sheets(select_ctx, &count);
+    if (code != CSS_OK)
+        die("css_select_ctx_count_sheets", code);
+    printf("created selection context with %i sheets\n", count);
+    
+    css_select_results *style;
+    char element[] = "span";
+    lwc_string *element_name;
+
+    lwc_intern_string(element, strlen(element), &element_name);
+    
+    code = css_select_style(select_ctx, element_name,
+                            CSS_MEDIA_SCREEN, NULL,
+                            &select_handler, 0,
+                            &style);
+    if (code != CSS_OK)
+        die("css_select_style", code);
+    
+    lwc_string_unref(element_name);
+    
+    flex_direction = css_computed_flex_direction(style->styles[CSS_PSEUDO_ELEMENT_NONE]);
+    flex_wrap = css_computed_flex_wrap(style->styles[CSS_PSEUDO_ELEMENT_NONE]);
+    type = css_computed_flex_grow(style->styles[CSS_PSEUDO_ELEMENT_NONE], &flex_grow);
+    
+    justify_content = css_computed_justify_content(style->styles[CSS_PSEUDO_ELEMENT_NONE]);
+    align_content = css_computed_align_content(style->styles[CSS_PSEUDO_ELEMENT_NONE]);
+    type = css_computed_flex_shrink(style->styles[CSS_PSEUDO_ELEMENT_NONE], &flex_shrink);
+    
+    align_self = css_computed_align_self(style->styles[CSS_PSEUDO_ELEMENT_NONE]);
+    align_items = css_computed_align_items(style->styles[CSS_PSEUDO_ELEMENT_NONE]);
+    type = css_computed_flex_basis(style->styles[CSS_PSEUDO_ELEMENT_NONE], &flex_basis);
+
+    
+    code = css_select_results_destroy(style);
+    if (code != CSS_OK)
+        die("css_computed_style_destroy", code);
+    
+    
+    /* free everything and shut down libcss */
+    code = css_select_ctx_destroy(select_ctx);
+    if (code != CSS_OK)
+        die("css_select_ctx_destroy", code);
+    code = css_stylesheet_destroy(sheet);
+    if (code != CSS_OK)
+        die("css_stylesheet_destroy", code);
+    
+    return 0;
 }
 
 

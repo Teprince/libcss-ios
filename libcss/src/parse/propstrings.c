@@ -218,6 +218,7 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
     /* facebook css layout support  */
     { "flex-direction", SLEN("flex-direction") },
     { "justify-content", SLEN("justify-content") },
+    { "align-content", SLEN("align-content") },
     { "align-items", SLEN("align-items") },
     { "align-self", SLEN("align-self") },
     { "flex-wrap", SLEN("flex-wrap") },
@@ -226,7 +227,6 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
     { "flex-basis", SLEN("flex-basis") },
     { "row", SLEN("row") },
     { "row-reverse", SLEN("row-reverse") },
-    { "column-reverse", SLEN("column-reverse") },
     { "column-reverse", SLEN("column-reverse") },
     { "flex-start", SLEN("flex-start") },
     { "flex-end", SLEN("flex-end") },
